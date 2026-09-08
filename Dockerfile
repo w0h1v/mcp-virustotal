@@ -26,6 +26,7 @@ WORKDIR /app
 # Copy the build output and node_modules from the builder stage
 COPY --from=builder /app/build /app/build
 COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/package.json /app/package.json
 
 # Set environment variables (the API key should be set as an environment variable at runtime)
 ENV NODE_ENV=production
