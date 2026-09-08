@@ -3,7 +3,7 @@
   "name": "io.github.BurtTheCoder/virustotal",
   "description": "MCP server for querying VirusTotal API with comprehensive security analysis tools.",
   "repository": {
-    "url": "https://github.com/BurtTheCoder/mcp-virustotal",
+    "url": "https://github.com/w0h1v/mcp-virustotal",
     "source": "github"
   },
   "version": "1.0.27",
