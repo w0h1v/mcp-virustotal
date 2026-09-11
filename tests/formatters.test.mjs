@@ -10,6 +10,7 @@ import {
   formatFileResults,
   formatUrlScanResults,
   formatIpResults,
+  formatIpRelationshipItem,
   formatDomainResults,
   formatDetectionResults,
   formatDateTime,
@@ -176,6 +177,21 @@ test('formatIpResults: minimal', () => {
   const out = formatIpResults({ id: '1.1.1.1', attributes: {} });
   assert.match(out.text, /IP Address Analysis/);
   assert.match(out.text, /1.1.1.1/);
+});
+
+test('formatIpRelationshipItem: related files include their SHA-256', () => {
+  const sha256 = '351386fb69cc2e985d2a92fd64353267e4ee8cb6ae2f4c8f7850850be8c73c93';
+  const out = formatIpRelationshipItem('communicating_files', {
+    id: sha256,
+    attributes: {
+      meaningful_name: 'sample.exe',
+      type_description: 'Win32 EXE',
+      first_submission_date: 1731456000,
+    },
+  });
+
+  assert.match(out, /sample\.exe/);
+  assert.match(out, new RegExp(`SHA-256: ${sha256}`));
 });
 
 test('formatDomainResults: minimal', () => {
