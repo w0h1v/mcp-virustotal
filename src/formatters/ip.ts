@@ -78,6 +78,7 @@ export function formatRelationshipData(relType: string, item: any): string {
     case 'communicating_files':
     case 'downloaded_files':
       return `  • ${attrs.meaningful_name || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     First Seen: ${attrs.first_submission_date ? formatDateTime(attrs.first_submission_date) : 'Unknown'}`;
 
