@@ -74,7 +74,7 @@ Use command `node` with the argument `/absolute/path/to/mcp-virustotal/build/ind
 
 ## HTTP streaming
 
-Run the server as a standalone HTTP service with `MCP_TRANSPORT=httpStream`. See [Environment variables](index.md#environment-variables).
+Run the server as a standalone HTTP service with `MCP_TRANSPORT=httpStream`. See [Environment variables](index.md#environment-variables). In Docker, publish the port on localhost only: `docker run -p 127.0.0.1:3000:3000 ...`.
 
 !!! warning
     The HTTP transport has no authentication. Don't expose the port beyond localhost without an authenticating reverse proxy, or anyone who can reach it can spend your API quota.

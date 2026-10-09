@@ -86,7 +86,7 @@ MCP_TRANSPORT=httpStream MCP_PORT=3000 VIRUSTOTAL_API_KEY=your-key node build/in
 
 ```sh
 docker build -t mcp-virustotal .
-docker run -p 3000:3000 -e VIRUSTOTAL_API_KEY=your-key -e MCP_TRANSPORT=httpStream mcp-virustotal
+docker run -p 127.0.0.1:3000:3000 -e VIRUSTOTAL_API_KEY=your-key -e MCP_TRANSPORT=httpStream mcp-virustotal
 ```
 
 A health check is served at `/health`.
@@ -97,6 +97,7 @@ A health check is served at `/health`.
 |---|---|---|
 | `VIRUSTOTAL_API_KEY` | *(required)* | Your VirusTotal API key |
 | `MCP_TRANSPORT` | `stdio` | `stdio` or `httpStream` |
+| `MCP_HOST` | `localhost` | Bind address (`httpStream` only). The Docker image sets `0.0.0.0` |
 | `MCP_PORT` | `3000` | HTTP port (`httpStream` only) |
 | `MCP_ENDPOINT` | `/mcp` | HTTP endpoint path (`httpStream` only) |
 
