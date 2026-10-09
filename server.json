@@ -6,12 +6,12 @@
     "url": "https://github.com/w0h1v/mcp-virustotal",
     "source": "github"
   },
-  "version": "1.0.28",
+  "version": "1.0.29",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@burtthecoder/mcp-virustotal",
-      "version": "1.0.28",
+      "version": "1.0.29",
       "transport": {
         "type": "stdio"
       },
