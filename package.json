@@ -23,11 +23,28 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
+    "model-context-protocol",
     "virustotal",
-    "security"
+    "security",
+    "threat-intelligence",
+    "malware-analysis",
+    "dfir",
+    "ioc",
+    "ai-agents",
+    "claude",
+    "claude-code",
+    "claude-desktop"
   ],
   "author": "BurtTheCoder",
   "license": "MIT",
+  "homepage": "https://w0h1v.github.io/mcp-virustotal/",
+  "bugs": {
+    "url": "https://github.com/w0h1v/mcp-virustotal/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "publishConfig": {
     "access": "public"
   },

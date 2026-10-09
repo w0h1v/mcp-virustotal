@@ -1,0 +1,6 @@
+node_modules
+build
+logs
+.git
+.env*
+.mcpregistry_*
