@@ -1,5 +1,5 @@
 # Build stage
-FROM node:24-slim AS builder
+FROM node:25-slim AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -10,7 +10,7 @@ COPY src ./src
 RUN npm run build
 
 # Runtime stage: production dependencies only
-FROM node:24-slim AS runner
+FROM node:25-slim AS runner
 WORKDIR /app
 
 COPY package.json package-lock.json ./
