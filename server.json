@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.BurtTheCoder/virustotal",
+  "name": "io.github.w0h1v/virustotal",
   "description": "MCP server for querying VirusTotal API with comprehensive security analysis tools.",
   "repository": {
     "url": "https://github.com/w0h1v/mcp-virustotal",
