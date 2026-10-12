@@ -26,6 +26,8 @@ updates:
       interval: "monthly"
     labels: ["dependencies"]
     ignore:
-      # Odd-numbered Node releases are never LTS.
+      # Odd-numbered Node releases are never LTS, and the "25.x" version pattern
+      # did not match tags like "25-slim". Ignore every major bump instead and move
+      # to the next even-numbered LTS by hand.
       - dependency-name: "node"
-        versions: ["23.x", "25.x", "27.x"]
+        update-types: ["version-update:semver-major"]
