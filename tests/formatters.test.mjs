@@ -11,6 +11,8 @@ import {
   formatUrlScanResults,
   formatIpResults,
   formatIpRelationshipItem,
+  formatUrlRelationshipItem,
+  formatFileRelationshipItem,
   formatDomainResults,
   formatDetectionResults,
   formatDateTime,
@@ -179,19 +181,37 @@ test('formatIpResults: minimal', () => {
   assert.match(out.text, /1.1.1.1/);
 });
 
-test('formatIpRelationshipItem: related files include their SHA-256', () => {
-  const sha256 = '351386fb69cc2e985d2a92fd64353267e4ee8cb6ae2f4c8f7850850be8c73c93';
-  const out = formatIpRelationshipItem('communicating_files', {
+for (const [entity, formatItem, relationships] of [
+  ['IP', formatIpRelationshipItem, ['communicating_files', 'downloaded_files']],
+  ['URL', formatUrlRelationshipItem, ['communicating_files', 'downloaded_files']],
+  ['file', formatFileRelationshipItem, ['dropped_files', 'similar_files', 'execution_parents']],
+]) {
+  for (const relationship of relationships) {
+    for (const meaningful_name of ['sample.exe', undefined]) {
+      test(`${entity} ${relationship}: includes SHA-256 with ${meaningful_name ? 'a filename' : 'no filename'}`, () => {
+        const sha256 = 'a'.repeat(64);
+        const out = formatItem(relationship, {
+          id: sha256,
+          attributes: { meaningful_name, type_description: 'Win32 EXE' },
+        });
+
+        assert.ok(out.includes(`  • ${meaningful_name || sha256}\n`));
+        assert.ok(out.includes(`    SHA-256: ${sha256}\n`));
+        assert.match(out, /Type: Win32 EXE/);
+      });
+    }
+  }
+}
+
+test('dropped_files: preserves the names fallback alongside SHA-256', () => {
+  const sha256 = 'a'.repeat(64);
+  const out = formatFileRelationshipItem('dropped_files', {
     id: sha256,
-    attributes: {
-      meaningful_name: 'sample.exe',
-      type_description: 'Win32 EXE',
-      first_submission_date: 1731456000,
-    },
+    attributes: { names: ['fallback.exe'] },
   });
 
-  assert.match(out, /sample\.exe/);
-  assert.match(out, new RegExp(`SHA-256: ${sha256}`));
+  assert.ok(out.includes('  • fallback.exe\n'));
+  assert.ok(out.includes(`    SHA-256: ${sha256}\n`));
 });
 
 test('formatDomainResults: minimal', () => {

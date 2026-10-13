@@ -41,11 +41,13 @@ function formatRelationshipData(relType: string, item: RelationshipItem): string
 
     case 'communicating_files':
       return `  • ${attrs.meaningful_name || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     First Seen: ${attrs.first_submission_date ? new Date(attrs.first_submission_date * 1000).toLocaleDateString() : 'Unknown'}`;
 
     case 'downloaded_files':
       return `  • ${attrs.meaningful_name || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     First Seen: ${attrs.first_submission_date ? new Date(attrs.first_submission_date * 1000).toLocaleDateString() : 'Unknown'}`;
 
@@ -83,6 +85,7 @@ function formatRelationshipData(relType: string, item: RelationshipItem): string
       const stats = attrs.last_analysis_stats || {};
       const totalDetections = (Object.values(stats) as number[]).reduce((a, b) => a + b, 0);
       return `  • ${attrs.meaningful_name || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     Detection Ratio: ${attrs.last_analysis_stats
         ? `${attrs.last_analysis_stats.malicious}/${totalDetections}`

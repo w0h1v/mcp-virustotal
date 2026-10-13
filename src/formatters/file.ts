@@ -125,6 +125,7 @@ export function formatRelationshipData(relType: string, item: any): string {
 
     case 'dropped_files':
       return `  • ${attrs.meaningful_name || attrs.names?.[0] || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     Size: ${attrs.size ? formatFileSize(attrs.size) : 'Unknown'}
     First Seen: ${attrs.first_submission_date ? formatDateTime(attrs.first_submission_date) : 'Unknown'}
@@ -134,6 +135,7 @@ export function formatRelationshipData(relType: string, item: any): string {
 
     case 'similar_files':
       return `  • ${attrs.meaningful_name || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     Size: ${attrs.size ? formatFileSize(attrs.size) : 'Unknown'}
     First Seen: ${attrs.first_submission_date ? formatDateTime(attrs.first_submission_date) : 'Unknown'}`;
@@ -143,6 +145,7 @@ export function formatRelationshipData(relType: string, item: any): string {
       const totalDetections = stats ? 
         Object.values(stats).reduce((a: number, b: number) => a + b, 0) : 0;
       return `  • ${attrs.meaningful_name || item.id}
+    SHA-256: ${item.id}
     Type: ${attrs.type_description || attrs.type || 'Unknown'}
     First Seen: ${attrs.first_submission_date ? formatDateTime(attrs.first_submission_date) : 'Unknown'}
     Detection Ratio: ${stats ? `${stats.malicious}/${totalDetections}` : 'Unknown'}`;
