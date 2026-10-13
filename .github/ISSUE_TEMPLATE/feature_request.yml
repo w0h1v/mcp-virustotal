@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest a capability or improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The task, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Tool names, parameters, or behaviour you would like.
+  - type: textarea
+    id: api
+    attributes:
+      label: Does the VirusTotal API support it?
+      description: Link the v3 endpoint or documentation, or write "not sure".

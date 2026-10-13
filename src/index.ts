@@ -166,14 +166,15 @@ async function main() {
 
   if (transport === 'httpStream') {
     const port = parseInt(process.env.MCP_PORT || '3000', 10);
+    const host = process.env.MCP_HOST || 'localhost';
     const endpoint = (process.env.MCP_ENDPOINT || '/mcp') as `/${string}`;
 
     await server.start({
       transportType: 'httpStream',
-      httpStream: { port, endpoint },
+      httpStream: { host, port, endpoint },
     });
 
-    logToFile(`VirusTotal MCP Server listening on port ${port} at ${endpoint}`);
+    logToFile(`VirusTotal MCP Server listening on ${host}:${port} at ${endpoint}`);
   } else {
     await server.start({ transportType: 'stdio' });
     logToFile('VirusTotal MCP Server is running on stdio.');

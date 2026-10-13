@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/w0h1v/mcp-virustotal/security/advisories/new
+    about: Report vulnerabilities privately. Do not open a public issue for them.
+  - name: Problem with VirusTotal itself
+    url: https://support.virustotal.com/
+    about: API quotas, account problems and detection results belong to VirusTotal. This server only calls the v3 API.

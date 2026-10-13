@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - main
+    # Skip changes that don't alter the published package.
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'mkdocs.yml'
+      - 'mkdocs_hooks.py'
+      - '.github/**'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'CITATION.cff'
   release:
     types: [created]
 
@@ -14,13 +24,13 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -37,6 +47,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Test
+        run: npm test
 
       - name: Bump version
         if: github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip ci]')
@@ -56,3 +69,16 @@ jobs:
       - name: Publish to NPM
         if: success()
         run: npm publish --provenance --access public
+
+      # The registry checks that the published npm package's mcpName matches
+      # server.json, so this runs after the npm publish. Auth is GitHub OIDC for
+      # the io.github.<repo owner> namespace.
+      - name: Publish to MCP Registry
+        if: success()
+        run: |
+          curl -fsSL -o mcp-publisher.tar.gz "https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz"
+          echo "a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc  mcp-publisher.tar.gz" | sha256sum -c -
+          tar xzf mcp-publisher.tar.gz mcp-publisher
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish
+          rm -f mcp-publisher mcp-publisher.tar.gz

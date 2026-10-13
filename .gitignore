@@ -5,3 +5,5 @@ build/
 .env.local
 .env.*.local
 .mcpregistry_*
+__pycache__/
+site/

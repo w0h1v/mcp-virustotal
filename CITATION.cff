@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use mcp-virustotal in research or publications, please cite it as below."
+title: "mcp-virustotal"
+abstract: "Model Context Protocol server that gives AI agents access to the VirusTotal v3 API: file, URL, IP and domain reports, relationships, corpus search, sandbox behaviour and threat collections."
+type: software
+authors:
+  - name: "mcp-virustotal contributors"
+license: MIT
+repository-code: "https://github.com/w0h1v/mcp-virustotal"
+keywords: [mcp, model-context-protocol, virustotal, threat-intelligence, malware-analysis, dfir, ai-agents]
