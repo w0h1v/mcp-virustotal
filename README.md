@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
-    <img alt="mcp-virustotal: VirusTotal threat intelligence for AI agents" src="docs/assets/banner-light.svg" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.png">
+    <img alt="mcp-virustotal: threat intelligence for AI agents" src="docs/assets/banner-light.png" width="800">
   </picture>
 </p>
 

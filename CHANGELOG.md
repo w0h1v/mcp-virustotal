@@ -10,6 +10,7 @@
 - CI workflow (Node 20/22/24 tests, package check, dependency audit, Docker build), Dependabot, issue and pull request templates, security policy, contributing guide, code of conduct, and a documentation site.
 
 ### Changed
+- New README and social preview banners (light and dark).
 - MCP Registry listing moves to `io.github.w0h1v/virustotal` (the `BurtTheCoder` GitHub account was renamed, so the old namespace can no longer be updated; its entry stays at 1.0.17). A separate workflow (`mcp-registry.yml`) updates the registry after each npm release and can be run by hand.
 - IP reports and IP relationship output now show the SHA-256 of communicating and downloaded files (#22).
 - The npm publish workflow runs tests first and skips docs-, workflow- and config-only changes.
