@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { once } from 'node:events';
 import axios from 'axios';
+import { handleGetDomainReport, handleGetDomainRelationship } from '../build/handlers/domain.js';
 import {
   initVirusTotalClient,
   queryVirusTotal,
@@ -90,4 +91,42 @@ for (const [status, code] of [[404, 'NotFoundError'], [429, 'QuotaExceededError'
       return true;
     });
   });
+}
+
+for (const relationship of ['communicating_files', 'downloaded_files', 'referrer_files']) {
+  for (const meaningful_name of ['sample.exe', undefined]) {
+    for (const mode of ['report', 'relationship']) {
+      test(`domain ${relationship} ${mode}: includes SHA-256 with ${meaningful_name ? 'a filename' : 'no filename'}`, async (t) => {
+        const sha256 = 'a'.repeat(64);
+        const item = {
+          id: sha256,
+          type: 'file',
+          attributes: { meaningful_name, type_description: 'Win32 EXE' },
+        };
+        const payload = mode === 'report'
+          ? { data: { id: 'example.com', relationships: {
+              [relationship]: { data: meaningful_name ? [item] : item },
+            } } }
+          : { data: [item] };
+        const requests = await withApi(t, 200, payload);
+        const out = mode === 'report'
+          ? await handleGetDomainReport({ domain: 'example.com', relationships: [relationship] })
+          : await handleGetDomainRelationship({ domain: 'example.com', relationship, limit: 10 });
+        const text = out.content[0].text;
+
+        assert.ok(text.includes(`  • ${meaningful_name || sha256}\n`));
+        assert.ok(text.includes(`    SHA-256: ${sha256}\n`));
+        assert.match(text, /Type: Win32 EXE/);
+        assert.equal(requests.length, 1);
+        const url = new URL(requests[0].url, 'http://localhost');
+        if (mode === 'report') {
+          assert.equal(url.pathname, '/api/v3/domains/example.com');
+          assert.equal(url.searchParams.get('relationships'), relationship);
+        } else {
+          assert.equal(url.pathname, `/api/v3/domains/example.com/${relationship}`);
+          assert.equal(url.searchParams.get('limit'), '10');
+        }
+      });
+    }
+  }
 }
