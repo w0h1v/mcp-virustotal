@@ -20,6 +20,15 @@ VirusTotal has no record of it. For files, the hash must be an MD5, SHA-1 or SHA
 - Run `npx -y @burtthecoder/mcp-virustotal` in a terminal. A missing `VIRUSTOTAL_API_KEY` or an old Node (below 20) fails at startup.
 - Desktop clients may not inherit your shell `PATH`. Use the absolute path to `npx` or `node`.
 
+## "MCP error -32000: Connection closed"
+
+The server process exited before the client finished connecting. The client only reports the closed connection; the reason is in the server's stderr and log file.
+
+1. Run `VIRUSTOTAL_API_KEY=your-key npx -y @burtthecoder/mcp-virustotal` in a terminal. The cause prints on stderr, for example `VIRUSTOTAL_API_KEY environment variable is required`.
+2. Check Node is 20 or newer: `node --version`.
+3. Check the `command` in your client config. Desktop clients may not find `npx`; use its absolute path.
+4. Read `logs/mcp-virustotal-server.log` (see above for its location).
+
 ## The smoke test hangs or fails
 
 `npm run smoke` paces calls at 20 s and needs a key with normal quota. It isn't compatible with free tiers reduced to a few lookups a day. Edit `scripts/smoke-test.mjs` to run a single tool.
