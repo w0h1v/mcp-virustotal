@@ -34,15 +34,13 @@ export const GetFileRelationshipArgsSchema = z.object({
 
 export const GetIpReportArgsSchema = z.object({
   ip: z
-    .string()
-    .ip('Must be a valid IP address')
+    .union([z.ipv4(), z.ipv6()], { error: 'Must be a valid IP address' })
     .describe('IP address to analyze'),
 });
 
 export const GetIpRelationshipArgsSchema = z.object({
   ip: z
-    .string()
-    .ip('Must be a valid IP address')
+    .union([z.ipv4(), z.ipv6()], { error: 'Must be a valid IP address' })
     .describe('IP address to analyze'),
   relationship: z.enum(RELATIONSHIPS.ip).describe('Type of relationship to query'),
 }).merge(PaginationSchema);
