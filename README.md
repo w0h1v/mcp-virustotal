@@ -11,7 +11,6 @@
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
   <img alt="Node 20 or newer" src="https://img.shields.io/badge/node-%E2%89%A520-339933">
   <a href="https://registry.modelcontextprotocol.io"><img alt="MCP Registry" src="https://img.shields.io/badge/MCP-Registry-7c3aed"></a>
-  <a href="https://smithery.ai/server/@burtthecoder/mcp-virustotal"><img alt="Smithery" src="https://smithery.ai/badge/@burtthecoder/mcp-virustotal"></a>
 </p>
 
 <p align="center">
@@ -62,7 +61,7 @@ codex mcp add virustotal --env VIRUSTOTAL_API_KEY=your-key -- npx -y @burtthecod
 gemini mcp add -e VIRUSTOTAL_API_KEY=your-key virustotal npx -y @burtthecoder/mcp-virustotal
 ```
 
-For Claude Desktop, VS Code, Smithery and running from source, see [Connect a client](docs/clients.md).
+For Claude Desktop, VS Code and running from source, see [Connect a client](docs/clients.md).
 
 Then ask your agent: *"Look up the SHA-256 `275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f` (the EICAR test file) and show what it drops and contacts."*
 
